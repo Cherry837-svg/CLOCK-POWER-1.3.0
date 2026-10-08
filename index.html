@@ -1,21 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
 
-AmigoBandy Cherneta <stadnyk837@gmail.com>
-20:57 (2 –º–∏–Ω—É—Ç—ã –Ω–∞–∑–∞–¥)
-–∫–æ–º—É: –º–Ω–µ
+<head>
 
-<!DOCTYPE html> <html lang="ru"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <meta name="apple-mobile-web-app-capable" content="yes"> <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <meta name="mobile-web-app-capable" content="yes"> <title>Digital Clock</title> <style> /* ========================================================= –û–°–ù–û–í–ù–´–ï –ù–ê–°–¢–†–û–ô–ö–ò ========================================================= */ * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; } html, body { width: 100%; height: 100%; overflow: hidden; background: #000; } body { font-family: "Courier New", Courier, monospace; color: #00ff00; } /* ========================================================= –≠–ö–†–ê–ù ========================================================= */ .screen { position: fixed; inset: 0; width: 100%; height: 100%; background: #000; overflow: hidden; touch-action: manipulation; } /* ========================================================= –ü–†–û–¶–ï–ù–¢ –ë–ê–¢–ê–†–ï–ò –°–í–ï–†–•–£ ========================================================= */ .battery-percent { position: absolute; top: 8vh; left: 50%; transform: translateX(-50%); color: #00ff00; font-size: clamp(24px, 10vw, 32px); font-weight: 900; white-space: nowrap; z-index: 10; } /* ========================================================= –í–ï–†–•–ù–Ø–Ø –†–ê–î–£–ñ–ù–ê–Ø –ü–û–õ–û–°–ö–ê ========================================================= */ .rainbow-bar { position: absolute; top: 20vh; left: 50%; transform: translateX(-50%); width: 70vw; max-width: 600px; height: 9px; background: #111; border-radius: 20px; overflow: hidden; box-shadow: 0 0 5px rgba(255,255,255,0.15); z-index: 5; } .rainbow-fill { position: absolute; left: 0; top: 0; width: 0%; height: 100%; border-radius: 20px; transition: width 0.35s ease, background 0.35s ease; box-shadow: 0 0 8px rgba(255,255,255,0.4); } /* ========================================================= –ß–ê–°–´ ========================================================= */ .clock-container { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 100%; display: flex; justify-content: center; align-items: center; z-index: 4; }.main-time {
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+
+<title>Digital Clock</title>
+
+<style>
+
+/* =========================================================
+   Œ—ÕŒ¬Õ€≈ Õ¿—“–Œ… »
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+body {
+    font-family: "Courier New", Courier, monospace;
+    color: #00ff00;
+}
+
+
+/* =========================================================
+   › –¿Õ
+   ========================================================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+    touch-action: manipulation;
+
+    /* ¿Õ“»-¬€√Œ–¿Õ»≈ */
+    will-change: transform;
+}
+
+
+/* =========================================================
+   œ–Œ÷≈Õ“ ¡¿“¿–≈» —¬≈–’”
+   ========================================================= */
+
+.battery-percent {
+    position: absolute;
+    top: 18vh;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #00ff00;
+    font-size: clamp(24px, 10vw, 32px);
+    font-weight: 900;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+
+/* =========================================================
+   ¬≈–’Õﬂﬂ –¿ƒ”∆Õ¿ﬂ œŒÀŒ— ¿
+   ========================================================= */
+
+.rainbow-bar {
+    position: absolute;
+    top: 28vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    max-width: 600px;
+    height: 8px;
+    background: #111;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(255,255,255,0.15);
+    z-index: 5;
+}
+
+.rainbow-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.35s ease, background 0.35s ease;
+    box-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+
+/* =========================================================
+   ◊¿—€
+   ========================================================= */
+
+.clock-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+
+.main-time {
     display: flex;
     align-items: center;
     justify-content: center;
     color: #00ff00;
-    font-family: "Digital-7", "Courier New", monospace;
+    font-family: "Roboto", "Digital-7", "Courier New", monospace;
     font-size: clamp(60px, 19vw, 150px);
-    font-weight: 900;
+    font-weight:  900;
     line-height: 1;
     white-space: nowrap;
     text-shadow: 0 0 5px rgba(0,255,0,0.35);
     position: relative;
-}.time-part { display: inline-block; } .main-colon { display: inline-block; margin: 0 0.04em; transition: opacity 0.15s ease; } /* ========================================================= –°–ï–ö–£–ù–î–´ ========================================================= */ .seconds-zone { display: inline-flex; align-items: center; width: auto; margin-left: 0.04em; cursor: pointer; touch-action: manipulation; transition: width 0.15s ease, margin-left 0.15s ease, opacity 0.15s ease; } .seconds-display { font-size: 0.42em; font-weight: 900; line-height: 1; transform: translateY(0.12em); } .seconds-hidden { visibility: hidden; opacity: 0; pointer-events: none; } /* –ö–û–ì–î–ê –°–ï–ö–£–ù–î–´ –í–´–ö–õ–Æ–ß–ï–ù–´ –ö–æ–Ω—Ç–µ–π–Ω–µ—Ä —Å—Ç–∞–Ω–æ–≤–∏—Ç—Å—è –Ω—É–ª–µ–≤–æ–π —à–∏—Ä–∏–Ω—ã, –ø–æ—ç—Ç–æ–º—É HH:MM –≤–æ–∑–≤—Ä–∞—â–∞–µ—Ç—Å—è —Ç–æ—á–Ω–æ –≤ —Ü–µ–Ω—Ç—Ä —ç–∫—Ä–∞–Ω–∞. –°–∞–º –∫–æ–Ω—Ç–µ–π–Ω–µ—Ä –æ—Å—Ç–∞—ë—Ç—Å—è –¥–æ—Å—Ç—É–ø–Ω—ã–º, —á—Ç–æ–±—ã –¥–≤–æ–π–Ω—ã–º –Ω–∞–∂–∞—Ç–∏–µ–º –º–æ–∂–Ω–æ –±—ã–ª–æ —Å–Ω–æ–≤–∞ –≤–∫–ª—é—á–∏—Ç—å —Å–µ–∫—É–Ω–¥—ã. */ .seconds-off .seconds-zone { width: 0; margin-left: 0; visibility: visible; opacity: 0; /* –û—Å—Ç–∞–≤–ª—è–µ–º pointer-events –≤–∫–ª—é—á—ë–Ω–Ω—ã–º–∏, —á—Ç–æ–±—ã —Å—Ç–∞—Ä—ã–π —É—á–∞—Å—Ç–æ–∫ —Å–µ–∫—É–Ω–¥ –º–æ–≥ –ø—Ä–∏–Ω–∏–º–∞—Ç—å –¥–≤–æ–π–Ω–æ–µ –Ω–∞–∂–∞—Ç–∏–µ. */ pointer-events: auto; overflow: hidden; } /* ========================================================= –ü–†–û–ó–†–ê–ß–ù–ê–Ø –ó–û–ù–ê –ü–ï–†–ï–ö–õ–Æ–ß–ï–ù–ò–Ø –°–ï–ö–£–ù–î ========================================================= */ .seconds-toggle-zone { position: absolute; left: 50%; top: 50%; transform: translate( calc(50% + 5px), -50% ); width: 18vw; max-width: 100px; height: 14vh; min-height: 60px; background: transparent; z-index: 8; touch-action: manipulation; } /* ========================================================= –î–ê–¢–ê ========================================================= */ .date-display { position: absolute; left: 50%; bottom: 24vh; transform: translateX(-50%); color: #00ff00; font-size: clamp(22px, 5.5vw, 32px); font-weight: 900; white-space: nowrap; z-index: 6; touch-action: none; } /* ========================================================= –°–¢–ê–¢–£–° ========================================================= */ .screen-status  {
+}
+
+.time-part {
+    display: inline-block;
+    font-family: sans-serif;
+    font-weight: 800;
+    transform: scaleX(1.0);
+}
+
+
+/* =========================================================
+   —≈ ”Õƒ€
+   ========================================================= */
+
+.seconds-zone {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    margin-left: 0.12em;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition:
+        width 0.15s ease,
+        margin-left 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.seconds-display {
+    font-size: 0.64em;
+    font-weight: 900;
+    line-height: 1;
+    transform: translateY(0.12em);
+}
+
+.seconds-hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   —≈ ”Õƒ€ ¬€ Àﬁ◊≈Õ€
+   ========================================================= */
+
+.seconds-off .seconds-zone {
+    width: 0;
+    margin-left: 0;
+    visibility: visible;
+    opacity: 0;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   œ–Œ«–¿◊Õ¿ﬂ «ŒÕ¿ œ≈–≈ Àﬁ◊≈Õ»ﬂ —≈ ”Õƒ
+   ========================================================= */
+
+.seconds-toggle-zone {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(
+        calc(50% + 5px),
+        -50%
+    );
+    width: 18vw;
+    max-width: 100px;
+    height: 14vh;
+    min-height: 60px;
+    background: transparent;
+    z-index: 8;
+    touch-action: manipulation;
+}
+
+
+/* =========================================================
+   ƒ¿“¿
+   ========================================================= */
+
+.date-display {
+    position: absolute;
+    left: 50%;
+    bottom: 24vh;
+    transform: translateX(-50%);
+    color: #00ff00;
+    font-size: clamp(22px, 5.5vw, 32px);
+    font-weight: 900;
+    white-space: nowrap;
+    z-index: 6;
+    touch-action: none;
+}
+
+
+/* =========================================================
+   —“¿“”—
+   ========================================================= */
+
+.screen-status {
     position: absolute;
     left: 5vw;
     top: 12vh;
@@ -28,25 +249,1858 @@ AmigoBandy Cherneta <stadnyk837@gmail.com>
     opacity: 1;
     pointer-events: none;
     z-index: 20;
-} /* ========================================================= –ù–ò–ñ–ù–ò–ô –ö–†–£–ì–û–í–û–ô –ò–ù–î–ò–ö–ê–¢–û–† ========================================================= */ .battery-circle { position: absolute; bottom: 3.5vh; left: 50%; transform: translateX(-50%); width: clamp(65px, 12vw, 95px); height: clamp(45px, 9vw, 75px); pointer-events: none; z-index: 5; } .battery-circle canvas { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; z-index: 1; } .battery-circle-inner { position: absolute; inset: 14%; border-radius: 50%; background: #000; display: flex; justify-content: center; align-items: center; color: #00ff00; font-size: clamp(18px, 4.7vw, 22px); font-weight: 900; z-index: 2; } /* ========================================================= –¢–†–ï–£–ì–û–õ–¨–ù–ò–ö–ò ========================================================= */ .battery-triangle { position: absolute; bottom: 8.2vh; width: 0; height: 0; transition: border-color 0.25s ease, filter 0.25s ease; z-index: 6; } .triangle-left { right: calc(50% + 65px); border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 18px solid transparent; } .triangle-right { left: calc(50% + 65px); border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 15px solid transparent; } .battery-discharging .triangle-left { border-top-color: #ff0000; filter: drop-shadow( 0 0 5px rgba(255,0,0,0.65) ); } .battery-charging .triangle-right { border-bottom-color: #00ff00; filter: drop-shadow( 0 0 5px rgba(0,255,0,0.65) ); } /* ========================================================= FULLSCREEN HINT ========================================================= */ .fullscreen-hint { position: absolute; left: 50%; bottom: 1vh; transform: translateX(-50%); color: #00ff00; font-size: 10px; opacity: 0; pointer-events: none; z-index: 20; } /* ========================================================= –ú–û–ë–ò–õ–¨–ù–ê–Ø –í–ï–†–°–ò–Ø ========================================================= */ @media (max-width: 500px) { .battery-percent { top: 2vh; } .rainbow-bar { top: 10vh; width: 78vw; } .date-display { bottom: 9vh; } /* –ù–∏–∂–Ω–∏–π –∫—Ä—É–≥ –ù–ï –ú–ï–ù–Ø–ï–ú. –û—Å—Ç–∞–≤–ª—è–µ–º –∏—Å—Ö–æ–¥–Ω–æ–µ –ø–æ–ª–æ–∂–µ–Ω–∏–µ. */ .battery-circle { bottom: 2vh; } /* –¢—Ä–µ—É–≥–æ–ª—å–Ω–∏–∫–∏ –ù–ï –ú–ï–ù–Ø–ï–ú. */ .battery-triangle { bottom: 3.5vh; } .triangle-left { right: calc(50% + 43px); } .triangle-right { left: calc(50% + 43px); } .seconds-toggle-zone { width: 24vw; height: 16vh; } /* –°–æ–æ–±—â–µ–Ω–∏–µ –ø–æ–¥ –¥–∞—Ç–æ–π. */ .screen-status { bottom: calc(9vh - 28px); } } /* ========================================================= –ö–û–ù–ï–¶ CSS ========================================================= */ </style> </head> <body> <div class="screen" id="screen"> <!-- ===================================================== –ü–†–û–¶–ï–ù–¢ –ë–ê–¢–ê–†–ï–ò ===================================================== --> <div class="battery-percent" id="batteryPercent"> --% </div> <!-- ===================================================== –í–ï–†–•–ù–Ø–Ø –ü–û–õ–û–°–ö–ê ===================================================== --> <div class="rainbow-bar"> <div class="rainbow-fill" id="rainbowFill"> </div> </div> <!-- ===================================================== –ß–ê–°–´ ===================================================== --> <div class="clock-container" id="clockContainer"> <div class="main-time" id="mainTime"> <span class="time-part" id="hours"> 00 </span> <span class="main-colon" id="mainColon"> : </span> <span class="time-part" id="minutes"> 00 </span> <div class="seconds-zone" id="secondsZone"> <span class="seconds-display" id="seconds"> 00 </span> </div> </div> <!-- –ü—Ä–æ–∑—Ä–∞—á–Ω–∞—è –æ–±–ª–∞—Å—Ç—å. –û–Ω–∞ —Ä–∞–±–æ—Ç–∞–µ—Ç –¥–∞–∂–µ —Ç–æ–≥–¥–∞, –∫–æ–≥–¥–∞ —Å–µ–∫—É–Ω–¥—ã —Å–∫—Ä—ã—Ç—ã. --> <div class="seconds-toggle-zone" id="secondsToggleZone"> </div> </div> <!-- ===================================================== –î–ê–¢–ê ===================================================== --> <div class="date-display" id="dateDisplay"> <span id="dateText"> 00 00 0000 </span> </div> <!-- ===================================================== –°–¢–ê–¢–£–° ===================================================== --> <div class="screen-status" id="screenStatus"> </div> <!-- ===================================================== –¢–†–ï–£–ì–û–õ–¨–ù–ò–ö –†–ê–ó–†–Ø–î–ê ===================================================== --> <div class="battery-triangle triangle-left" id="triangleLeft"> </div> <!-- ===================================================== –¢–†–ï–£–ì–û–õ–¨–ù–ò–ö –ó–ê–†–Ø–î–ê ===================================================== --> <div class="battery-triangle triangle-right" id="triangleRight"> </div> <!-- ===================================================== –ù–ò–ñ–ù–ò–ô –ö–†–£–ì ===================================================== --> <div class="battery-circle" id="batteryCircleWrapper"> <canvas id="batteryCanvas"> </canvas> <div class="battery-circle-inner" id="batteryCircle"> -- </div> </div> <!-- ===================================================== FULLSCREEN HINT ===================================================== --> <div class="fullscreen-hint" id="fullscreenHint"> </div> </div> <script> /* ========================================================= –≠–õ–ï–ú–ï–ù–¢–´ ========================================================= */ const mainTime = document.getElementById( 'mainTime' ); const hours = document.getElementById( 'hours' ); const minutes = document.getElementById( 'minutes' ); const seconds = document.getElementById( 'seconds' ); const mainColon = document.getElementById( 'mainColon' ); const secondsZone = document.getElementById( 'secondsZone' ); const secondsToggleZone = document.getElementById( 'secondsToggleZone' ); const dateDisplay = document.getElementById( 'dateDisplay' ); const dateText = document.getElementById( 'dateText' ); const screenStatus = document.getElementById( 'screenStatus' ); const batteryPercent = document.getElementById( 'batteryPercent' ); const batteryCircle = document.getElementById( 'batteryCircle' ); const rainbowFill = document.getElementById( 'rainbowFill' ); const screen = document.getElementById( 'screen' ); const batteryCanvas = document.getElementById( 'batteryCanvas' ); const batteryCtx = batteryCanvas.getContext( '2d' ); /* ========================================================= –°–û–°–¢–û–Ø–ù–ò–ï ========================================================= */ let SHOW_SECONDS = true; let KEEP_SCREEN_ON = true; let wakeLock = null; let lastBatteryLevel = 0; let lastBatteryCharging = false; let statusTimer = null; /* ========================================================= –°–¢–ê–¢–£–°-–°–û–û–ë–©–ï–ù–ò–Ø ========================================================= */ function showStatus( message, duration = 3200 ) { clearTimeout( statusTimer ); screenStatus.textContent = message; if (duration > 0) { statusTimer = setTimeout( function() { screenStatus.textContent = ''; }, duration ); } } /* ========================================================= –ß–ê–°–´ ========================================================= */ function updateClock() { const now = new Date(); const h = String( now.getHours() ).padStart( 2, '0' ); const m = String( now.getMinutes() ).padStart( 2, '0' ); const s = String( now.getSeconds() ).padStart( 2, '0' ); hours.textContent = h; minutes.textContent = m; seconds.textContent = s; if (SHOW_SECONDS) { mainTime.classList.remove( 'seconds-off' ); seconds.classList.remove( 'seconds-hidden' ); mainColon.style.opacity = '1'; } else { mainTime.classList.add( 'seconds-off' ); seconds.classList.add( 'seconds-hidden' ); mainColon.style.opacity = now.getSeconds() % 2 === 0 ? '1' : '0'; } const day = String( now.getDate() ).padStart( 2, '0' ); const month = String( now.getMonth() + 1 ).padStart( 2, '0' ); const year = now.getFullYear(); dateText.textContent = `${day} ${month} ${year}`; } updateClock(); setInterval( updateClock, 1000 ); /* ========================================================= –ò–ù–¢–ï–†–ü–û–õ–Ø–¶–ò–Ø –¶–í–ï–¢–ê ========================================================= */ function interpolateColor( color1, color2, amount ) { const hexToRgb = function(hex) { hex = hex.replace( '#', '' ); return { r: parseInt( hex.substring( 0, 2 ), 16 ), g: parseInt( hex.substring( 2, 4 ), 16 ), b: parseInt( hex.substring( 4, 6 ), 16 ) }; }; const rgbToHex = function( r, g, b ) { return '#' + [ r, g, b ] .map( function(value) { return Math.round( value ) .toString(16) .padStart( 2, '0' ); } ) .join(''); }; const c1 = hexToRgb( color1 ); const c2 = hexToRgb( color2 ); const r = c1.r + ( c2.r - c1.r ) * amount; const g = c1.g + ( c2.g - c1.g ) * amount; const b = c1.b + ( c2.b - c1.b ) * amount; return rgbToHex( r, g, b ); } /* ========================================================= –¶–í–ï–¢–û–í–û–ô –°–ü–ï–ö–¢–† ========================================================= */ const batteryColors = [ { pos: 0, color: '#ff0000' }, { pos: 14.2857, color: '#ff8000' }, { pos: 28.5714, color: '#ffff00' }, { pos: 42.8571, color: '#00ff00' }, { pos: 57.1428, color: '#00ffff' }, { pos: 71.4285, color: '#0080ff' }, { pos: 85.7142, color: '#8000ff' }, { pos: 100, color: '#8000ff' } ]; /* ========================================================= –¢–ï–ö–£–©–ò–ô –¶–í–ï–¢ ========================================================= */ function getBatteryCurrentColor( level ) { level = Math.max( 0, Math.min( 100, level ) ); if (level <= 0) { return batteryColors[0] .color; } for ( let i = 1; i < batteryColors.length; i++ ) { if ( level <= batteryColors[i].pos ) { const previous = batteryColors[i - 1]; const current = batteryColors[i]; const progress = ( level - previous.pos ) / ( current.pos - previous.pos ); return interpolateColor( previous.color, current.color, progress ); } } return batteryColors[ batteryColors.length - 1 ].color; } /* ========================================================= –í–ï–†–•–ù–ò–ô –°–ü–ï–ö–¢–† ========================================================= */ function getBatterySpectrumGradient( level ) { if (level <= 0) { return '#ff0000'; } const stops = []; for ( let i = 0; i < batteryColors.length; i++ ) { const current = batteryColors[i]; if ( current.pos < level ) { const position = ( current.pos / level ) * 100; stops.push( `${current.color} ${position}%` ); continue; } if ( current.pos === level ) { stops.push( `${current.color} 100%` ); break; } const previous = batteryColors[i - 1]; const range = current.pos - previous.pos; const progress = ( level - previous.pos ) / range; const color = interpolateColor( previous.color, current.color, progress ); stops.push( `${color} 100%` ); break; } return ` linear-gradient( 90deg, ${stops.join(', ')} ) `; } /* ========================================================= –ù–ò–ñ–ù–ò–ô –ö–†–£–ì ========================================================= */ function drawBatteryCircle( level ) { const rect = batteryCanvas .getBoundingClientRect(); const width = rect.width; const height = rect.height; if ( width <= 0 || height <= 0 ) { return; } const dpr = window.devicePixelRatio || 1; batteryCanvas.width = Math.round( width * dpr ); batteryCanvas.height = Math.round( height * dpr ); batteryCtx.setTransform( dpr, 0, 0, dpr, 0, 0 ); batteryCtx.clearRect( 0, 0, width, height ); const centerX = width / 2; const centerY = height / 2; const radius = Math.min( width, height ) / 2 - 5; const color = getBatteryCurrentColor( level ); const startAngle = -Math.PI / 2; const batteryAngle = ( level / 100 ) * Math.PI * 2; /* –î—É–≥–∞ */ if (level > 0) { batteryCtx.beginPath(); batteryCtx.arc( centerX, centerY, radius, startAngle, startAngle + batteryAngle, false ); batteryCtx.strokeStyle = color; batteryCtx.lineWidth = 9; batteryCtx.lineCap = 'round'; batteryCtx.shadowColor = color; batteryCtx.shadowBlur = 7; batteryCtx.stroke(); batteryCtx.shadowBlur = 0; /* –¢–æ—á–∫–∞ –Ω–∞ –∫–æ–Ω—Ü–µ –¥—É–≥–∏ */ const endAngle = startAngle + batteryAngle; const dotX = centerX + Math.cos( endAngle ) * radius; const dotY = centerY + Math.sin( endAngle ) * radius; batteryCtx.beginPath(); batteryCtx.arc( dotX, dotY, 4, 0, Math.PI * 2 ); batteryCtx.fillStyle = color; batteryCtx.shadowColor = color; batteryCtx.shadowBlur = 8; batteryCtx.fill(); batteryCtx.shadowBlur = 0; } } /* ========================================================= –û–ë–ù–û–í–õ–ï–ù–ò–ï –ë–ê–¢–ê–†–ï–ò ========================================================= */ function updateBatteryIndicators( level, isCharging ) { level = Math.max( 0, Math.min( 100, Math.round(level) ) ); lastBatteryLevel = level; lastBatteryCharging = isCharging; /* –í–ï–†–• */ rainbowFill.style.width = `${level}%`; rainbowFill.style.background = getBatterySpectrumGradient( level ); /* –ù–ò–ó */ drawBatteryCircle( level ); /* –¶–ò–§–†–´ */ batteryPercent.textContent = `${level}%`; batteryCircle.textContent = `${level}%`; /* –ó–ê–†–Ø–î / –†–ê–ó–†–Ø–î */ screen.classList.toggle( 'battery-charging', isCharging ); screen.classList.toggle( 'battery-discharging', !isCharging ); } /* ========================================================= BATTERY API ========================================================= */ let batteryObject = null; async function initBattery() { if ( !( 'getBattery' in navigator ) ) { batteryPercent.textContent = '--%'; batteryCircle.textContent = '--'; rainbowFill.style.width = '0%'; rainbowFill.style.background = '#ff0000'; screen.classList.remove( 'battery-charging', 'battery-discharging' ); return; } try { batteryObject = await navigator.getBattery(); function updateBattery() { const level = Math.round( batteryObject.level * 100 ); updateBatteryIndicators( level, batteryObject.charging ); } updateBattery(); batteryObject.addEventListener( 'levelchange', updateBattery ); batteryObject.addEventListener( 'chargingchange', updateBattery ); } catch (error) { console.log( 'Battery API error:', error ); } } initBattery(); /* ========================================================= –î–í–û–ô–ù–û–ô –¢–ê–ü ‚Äî –°–ï–ö–£–ù–î–´ ========================================================= */ let lastSecondsTap = 0; function handleSecondsTap( event ) { event.preventDefault(); event.stopPropagation(); const now = Date.now(); if ( now - lastSecondsTap < 400 ) { SHOW_SECONDS = !SHOW_SECONDS; if (SHOW_SECONDS) { showStatus( 'SECONDS ON', 1200 ); } else { showStatus( 'SECONDS OFF', 1200 ); } updateClock(); lastSecondsTap = 0; return; } lastSecondsTap = now; } /* –ò–°–ü–†–ê–í–õ–ï–ù–ò–ï: –†–∞–Ω—å—à–µ –æ–±—Ä–∞–±–æ—Ç—á–∏–∫ –±—ã–ª –æ–¥–Ω–æ–≤—Ä–µ–º–µ–Ω–Ω–æ –Ω–∞ secondsZone –∏ secondsToggleZone. –¢–µ–ø–µ—Ä—å –∏—Å–ø–æ–ª—å–∑—É–µ—Ç—Å—è –¢–û–õ–¨–ö–û –ø—Ä–æ–∑—Ä–∞—á–Ω–∞—è –∑–æ–Ω–∞. –ü–æ—ç—Ç–æ–º—É –æ–¥–Ω–æ –¥–≤–æ–π–Ω–æ–µ –Ω–∞–∂–∞—Ç–∏–µ –Ω–µ –º–æ–∂–µ—Ç –≤—ã–∑–≤–∞—Ç—å –ø–µ—Ä–µ–∫–ª—é—á–µ–Ω–∏–µ –¥–≤–∞–∂–¥—ã. */ secondsToggleZone.addEventListener( 'pointerup', handleSecondsTap ); /* ========================================================= –¢–†–û–ô–ù–û–ô –¢–ê–ü ‚Äî FULLSCREEN ========================================================= */ let tapCount = 0; let tapTimer = null; let suppressNextTap = false; function resetTripleTap() { tapCount = 0; clearTimeout( tapTimer ); tapTimer = null; } screen.addEventListener( 'pointerup', function(event) { /* –°–µ–∫—É–Ω–¥—ã –æ–±—Ä–∞–±–∞—Ç—ã–≤–∞—é—Ç—Å—è –æ—Ç–¥–µ–ª—å–Ω–æ. */ if ( secondsZone.contains( event.target ) || secondsToggleZone.contains( event.target ) ) { return; } /* –î–∞—Ç–∞ –∏–º–µ–µ—Ç —Å–æ–±—Å—Ç–≤–µ–Ω–Ω—ã–π –¥–ª–∏–Ω–Ω—ã–π –∂–µ—Å—Ç. */ if ( dateDisplay.contains( event.target ) ) { return; } /* –ü–æ—Å–ª–µ –¥–ª–∏–Ω–Ω–æ–≥–æ –Ω–∞–∂–∞—Ç–∏—è —Å–ª–µ–¥—É—é—â–∏–π pointerup –∏–≥–Ω–æ—Ä–∏—Ä—É–µ—Ç—Å—è. */ if (suppressNextTap) { suppressNextTap = false; return; } tapCount++; if (tapCount === 3) { resetTripleTap(); toggleFullscreen(); return; } clearTimeout( tapTimer ); tapTimer = setTimeout( function() { resetTripleTap(); }, 500 ); } ); /* ========================================================= FULLSCREEN ========================================================= */ async function toggleFullscreen() { try { if ( !document.fullscreenElement ) { if ( !document.documentElement .requestFullscreen ) { showStatus( 'FULLSCREEN NOT SUPPORTED', 1500 ); return; } await document .documentElement .requestFullscreen(); showStatus( 'FULLSCREEN ON', 1200 ); } else { await document .exitFullscreen(); showStatus( 'FULLSCREEN OFF', 1200 ); } } catch (error) { console.log( 'Fullscreen error:', error ); showStatus( 'FULLSCREEN ERROR', 1500 ); } } /* ========================================================= WAKE LOCK ========================================================= */ async function requestWakeLock() { if ( !KEEP_SCREEN_ON ) { return; } if ( !( 'wakeLock' in navigator ) ) { return; } /* –ï—Å–ª–∏ Wake Lock —É–∂–µ –∞–∫—Ç–∏–≤–µ–Ω, –ø–æ–≤—Ç–æ—Ä–Ω–æ –µ–≥–æ –Ω–µ –∑–∞–ø—Ä–∞—à–∏–≤–∞–µ–º. */ if ( wakeLock && !wakeLock.released ) { return; } try { wakeLock = await navigator .wakeLock .request( 'screen' ); wakeLock.addEventListener( 'release', function() { wakeLock = null; } ); } catch (error) { console.log( 'Wake Lock error:', error ); } } /* ========================================================= –û–°–í–û–ë–û–ñ–î–ï–ù–ò–ï WAKE LOCK ========================================================= */ async function releaseWakeLock() { if (!wakeLock) { return; } try { await wakeLock.release(); } catch (error) { console.log( 'Wake Lock release error:', error ); } wakeLock = null; } /* ========================================================= –í–û–ó–í–†–ê–¢ –ù–ê –≠–ö–†–ê–ù ========================================================= */ document.addEventListener( 'visibilitychange', function() { if ( document.visibilityState === 'visible' ) { if ( KEEP_SCREEN_ON ) { requestWakeLock(); } drawBatteryCircle( lastBatteryLevel ); } } ); /* ========================================================= –î–õ–ò–¢–ï–õ–¨–ù–û–ï –ù–ê–ñ–ê–¢–ò–ï –ù–ê –î–ê–¢–£ ========================================================= */ let longPressTimer = null; let longPressTriggered = false; function startDateLongPress( event ) { if ( event.button !== undefined && event.button !== 0 ) { return; } event.preventDefault(); event.stopPropagation(); clearTimeout( longPressTimer ); longPressTriggered = false; longPressTimer = setTimeout( async function() { longPressTimer = null; longPressTriggered = true; suppressNextTap = true; KEEP_SCREEN_ON = !KEEP_SCREEN_ON; if ( KEEP_SCREEN_ON ) { await requestWakeLock(); showStatus( 'SCREEN LOCK ON', 1500 ); } else { await releaseWakeLock(); showStatus( 'SCREEN LOCK OFF', 1500 ); } }, 2500 ); } function cancelDateLongPress( event ) { if (event) { event.preventDefault(); event.stopPropagation(); } if ( longPressTimer !== null ) { clearTimeout( longPressTimer ); longPressTimer = null; } } /* Pointer Events: –ø–∞–ª–µ—Ü / –º—ã—à—å / —Å—Ç–∏–ª—É—Å. */ dateDisplay.addEventListener( 'pointerdown', startDateLongPress ); dateDisplay.addEventListener( 'pointerup', cancelDateLongPress ); dateDisplay.addEventListener( 'pointercancel', cancelDateLongPress ); dateDisplay.addEventListener( 'pointerleave', cancelDateLongPress ); /* ========================================================= –ó–ê–ü–£–°–ö WAKE LOCK ========================================================= */ requestWakeLock(); /* ========================================================= –ü–ï–†–ï–†–ò–°–û–í–ö–ê –ö–†–£–ì–ê ========================================================= */ window.addEventListener( 'resize', function() { /* –ò—Å–ø–æ–ª—å–∑—É–µ–º –ø–æ—Å–ª–µ–¥–Ω–µ–µ –∏–∑–≤–µ—Å—Ç–Ω–æ–µ –∑–Ω–∞—á–µ–Ω–∏–µ –±–∞—Ç–∞—Ä–µ–∏. */ drawBatteryCircle( lastBatteryLevel ); } ); /* ========================================================= –ò–ù–ò–¶–ò–ê–õ–¨–ù–ê–Ø –ü–ï–†–ï–†–ò–°–û–í–ö–ê ========================================================= */ requestAnimationFrame( function() { drawBatteryCircle( lastBatteryLevel ); } ); </script> </body> </html> 
+}
 
-–ö–ª—é—á–µ–≤–æ–π –º–æ–º–µ–Ω—Ç: —è —Å–ø–µ—Ü–∏–∞–ª—å–Ω–æ –æ—Å—Ç–∞–≤–∏–ª –±–µ–∑ –∏–∑–º–µ–Ω–µ–Ω–∏–π –≤–∞—à–∏ –∏—Å—Ö–æ–¥–Ω—ã–µ:
 
-battery-circle: bottom: 3.5vh / –º–æ–±–∏–ª—å–Ω—ã–π 2vh;
+/* =========================================================
+   Õ»∆Õ»…  –”√Œ¬Œ… »Õƒ» ¿“Œ–
+   ========================================================= */
 
-—Ä–∞–∑–º–µ—Ä—ã –∫—Ä—É–≥–∞ clamp(45px, 9vw, 75px);
+.battery-circle {
+    position: absolute;
+    bottom: 3.5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(65px, 12vw, 95px);
+    height: clamp(45px, 9vw, 75px);
+    pointer-events: none;
+    z-index: 5;
+}
 
-–ø–æ–ª–æ–∂–µ–Ω–∏–µ —Ç—Ä–µ—É–≥–æ–ª—å–Ω–∏–∫–æ–≤;
+.battery-circle canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 1;
+}
 
-–∏—Ö –∏—Å—Ö–æ–¥–Ω—ã–µ –∫—Ä–∞—Å–Ω—ã–π/–∑–µ–ª—ë–Ω—ã–π CSS-–∫–ª–∞—Å—Å—ã;
+.battery-circle-inner {
+    position: absolute;
+    inset: 14%;
+    border-radius: 50%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00ff00;
+    font-size: clamp(18px, 4.7vw, 22px);
+    font-weight: 900;
+    z-index: 2;
+}
 
-–≤–Ω—É—Ç—Ä–µ–Ω–Ω–∏–µ —Ü–∏—Ñ—Ä—ã batteryCircle;
 
-—Ç–æ–ª—â–∏–Ω—É –∏ —Ä–∞–¥–∏—É—Å –Ω–∏–∂–Ω–µ–π –¥—É–≥–∏;
+/* =========================================================
+   “–≈”√ŒÀ‹Õ» »
+   ========================================================= */
 
-—Ä–∞–∑–º–µ—Ä—ã —á–∞—Å–æ–≤;
+.battery-triangle {
+    position: absolute;
+    bottom: 8.2vh;
+    width: 0;
+    height: 0;
+    transition:
+        border-color 0.25s ease,
+        filter 0.25s ease;
+    z-index: 6;
+}
 
-–ø–æ–ª–æ–∂–µ–Ω–∏–µ –¥–∞—Ç—ã.
+.triangle-left {
+    right: calc(50% + 65px);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 18px solid transparent;
+}
 
-–ò–∑ —Ä–µ–∞–ª—å–Ω—ã—Ö –∏–∑–º–µ–Ω–µ–Ω–∏–π –∑–¥–µ—Å—å —Ç–æ–ª—å–∫–æ –æ–±—Ä–∞–±–æ—Ç—á–∏–∫ —Å–µ–∫—É–Ω–¥ –∏ –ø–æ–∑–∏—Ü–∏—è screen-status.
+.triangle-right {
+    left: calc(50% + 65px);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 15px solid transparent;
+}
 
+.battery-discharging .triangle-left {
+    border-top-color: #ff0000;
+    filter: drop-shadow(
+        0 0 5px rgba(255,0,0,0.65)
+    );
+}
+
+.battery-charging .triangle-right {
+    border-bottom-color: #00ff00;
+    filter: drop-shadow(
+        0 0 5px rgba(0,255,0,0.65)
+    );
+}
+
+
+/* =========================================================
+   FULLSCREEN HINT
+   ========================================================= */
+
+.fullscreen-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 1vh;
+    transform: translateX(-50%);
+    color: #00ff00;
+    font-size: 10px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+
+/* =========================================================
+   ÃŒ¡»À‹Õ¿ﬂ ¬≈–—»ﬂ
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    .battery-percent {
+        top: 2vh;
+    }
+
+    .rainbow-bar {
+        top: 10vh;
+        width: 78vw;
+    }
+
+    .date-display {
+        bottom: 9vh;
+    }
+
+    .battery-circle {
+        bottom: 2vh;
+    }
+
+    .battery-triangle {
+        bottom: 3.5vh;
+    }
+
+    .triangle-left {
+        right: calc(50% + 43px);
+    }
+
+    .triangle-right {
+        left: calc(50% + 43px);
+    }
+
+    .seconds-toggle-zone {
+        width: 24vw;
+        height: 16vh;
+    }
+
+    .screen-status {
+        bottom: calc(9vh - 28px);
+    }
+
+}
+
+
+/* =========================================================
+    ŒÕ≈÷ CSS
+   ========================================================= */
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="screen" id="screen">
+
+
+<!-- =====================================================
+     œ–Œ÷≈Õ“ ¡¿“¿–≈»
+     ===================================================== -->
+
+<div
+    class="battery-percent"
+    id="batteryPercent"
+>
+    --%
+</div>
+
+
+<!-- =====================================================
+     ¬≈–’Õﬂﬂ œŒÀŒ— ¿
+     ===================================================== -->
+
+<div class="rainbow-bar">
+
+    <div
+        class="rainbow-fill"
+        id="rainbowFill"
+    >
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ◊¿—€
+     ===================================================== -->
+
+<div
+    class="clock-container"
+    id="clockContainer"
+>
+
+    <div
+        class="main-time"
+        id="mainTime"
+    >
+
+        <span
+            class="time-part"
+            id="hours"
+        >
+            00
+        </span>
+
+        <span
+            class="main-colon"
+            id="mainColon"
+        >
+            :
+        </span>
+
+        <span
+            class="time-part"
+            id="minutes"
+        >
+            00
+        </span>
+
+        <div
+            class="seconds-zone"
+            id="secondsZone"
+        >
+
+            <span
+                class="seconds-display"
+                id="seconds"
+            >
+                00
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- œÓÁ‡˜Ì‡ˇ Ó·Î‡ÒÚ¸ ÔÂÂÍÎ˛˜ÂÌËˇ ÒÂÍÛÌ‰ -->
+
+    <div
+        class="seconds-toggle-zone"
+        id="secondsToggleZone"
+    >
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ƒ¿“¿
+     ===================================================== -->
+
+<div
+    class="date-display"
+    id="dateDisplay"
+>
+
+    <span id="dateText">
+        00 00 0000
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     —“¿“”—
+     ===================================================== -->
+
+<div
+    class="screen-status"
+    id="screenStatus"
+>
+</div>
+
+
+<!-- =====================================================
+     “–≈”√ŒÀ‹Õ»  –¿«–ﬂƒ¿
+     ===================================================== -->
+
+<div
+    class="battery-triangle triangle-left"
+    id="triangleLeft"
+>
+</div>
+
+
+<!-- =====================================================
+     “–≈”√ŒÀ‹Õ»  «¿–ﬂƒ¿
+     ===================================================== -->
+
+<div
+    class="battery-triangle triangle-right"
+    id="triangleRight"
+>
+</div>
+
+
+<!-- =====================================================
+     Õ»∆Õ»…  –”√
+     ===================================================== -->
+
+<div
+    class="battery-circle"
+    id="batteryCircleWrapper"
+>
+
+    <canvas
+        id="batteryCanvas"
+    >
+    </canvas>
+
+    <div
+        class="battery-circle-inner"
+        id="batteryCircle"
+    >
+        --
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FULLSCREEN HINT
+     ===================================================== -->
+
+<div
+    class="fullscreen-hint"
+    id="fullscreenHint"
+>
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   ›À≈Ã≈Õ“€
+   ========================================================= */
+
+const mainTime =
+    document.getElementById('mainTime');
+
+const hours =
+    document.getElementById('hours');
+
+const minutes =
+    document.getElementById('minutes');
+
+const seconds =
+    document.getElementById('seconds');
+
+const mainColon =
+    document.getElementById('mainColon');
+
+const secondsZone =
+    document.getElementById('secondsZone');
+
+const secondsToggleZone =
+    document.getElementById('secondsToggleZone');
+
+const dateDisplay =
+    document.getElementById('dateDisplay');
+
+const dateText =
+    document.getElementById('dateText');
+
+const screenStatus =
+    document.getElementById('screenStatus');
+
+const batteryPercent =
+    document.getElementById('batteryPercent');
+
+const batteryCircle =
+    document.getElementById('batteryCircle');
+
+const rainbowFill =
+    document.getElementById('rainbowFill');
+
+const screen =
+    document.getElementById('screen');
+
+const batteryCanvas =
+    document.getElementById('batteryCanvas');
+
+const batteryCtx =
+    batteryCanvas.getContext('2d');
+
+
+/* =========================================================
+   —Œ—“ŒﬂÕ»≈
+   ========================================================= */
+
+let SHOW_SECONDS = true;
+
+let KEEP_SCREEN_ON = true;
+
+let wakeLock = null;
+
+let lastBatteryLevel = 0;
+
+let lastBatteryCharging = false;
+
+let statusTimer = null;
+
+
+/* =========================================================
+   ¿Õ“»-¬€√Œ–¿Õ»≈
+   =========================================================
+
+   ¬ÂÒ¸ ËÌÚÂÙÂÈÒ Ó˜ÂÌ¸ ÏÂ‰ÎÂÌÌÓ ÔÂÂÏÂ˘‡ÂÚÒˇ
+   Ì‡ ÌÂÒÍÓÎ¸ÍÓ ÔËÍÒÂÎÂÈ.
+
+   X: ±3 px
+   Y: ±2 px
+   œÓÎÌ˚È ˆËÍÎ: 90 ÒÂÍÛÌ‰
+
+   ‘ÓÌ ÓÒÚ‡∏ÚÒˇ ˜∏Ì˚Ï Ë ÌÂÔÓ‰‚ËÊÌ˚Ï.
+   ========================================================= */
+
+const screenMoveAmplitudeX = 44;
+
+const screenMoveAmplitudeY = 40;
+
+const screenMoveTime = 49500;
+
+let screenMoveStart =
+    performance.now();
+
+
+function antiBurnMovement(time) {
+
+    const elapsed =
+        (time - screenMoveStart)
+        % screenMoveTime;
+
+    const angle =
+        (elapsed / screenMoveTime)
+        * Math.PI
+        * 2;
+
+
+    /*
+       √ÓËÁÓÌÚ‡Î¸ÌÓÂ ‰‚ËÊÂÌËÂ.
+    */
+
+    const moveX =
+        Math.sin(angle)
+        * screenMoveAmplitudeX;
+
+
+    /*
+       ¬ÂÚËÍ‡Î¸ÌÓÂ ‰‚ËÊÂÌËÂ.
+
+       »ÒÔÓÎ¸ÁÛÂÚÒˇ ‰‚ÓÈÌ‡ˇ ˜‡ÒÚÓÚ‡,
+       ÔÓ˝ÚÓÏÛ ÔÓÎÛ˜‡ÂÚÒˇ Ïˇ„Í‡ˇ
+       ˝ÎÎËÔÚË˜ÂÒÍ‡ˇ Ú‡ÂÍÚÓËˇ.
+    */
+
+    const moveY =
+        Math.sin(angle * 2)
+        * screenMoveAmplitudeY;
+
+
+    screen.style.transform =
+        `translate3d(${moveX}px, ${moveY}px, 0)`;
+
+
+    requestAnimationFrame(
+        antiBurnMovement
+    );
+}
+
+
+requestAnimationFrame(
+    antiBurnMovement
+);
+
+
+/* =========================================================
+   —“¿“”—-—ŒŒ¡Ÿ≈Õ»ﬂ
+   ========================================================= */
+
+function showStatus(
+    message,
+    duration = 3200
+) {
+
+    clearTimeout(statusTimer);
+
+    screenStatus.textContent =
+        message;
+
+    if (duration > 0) {
+
+        statusTimer =
+            setTimeout(
+                function() {
+
+                    screenStatus.textContent =
+                        '';
+
+                },
+                duration
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   ◊¿—€
+   ========================================================= */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+
+    const h =
+        String(
+            now.getHours()
+        ).padStart(2, '0');
+
+
+    const m =
+        String(
+            now.getMinutes()
+        ).padStart(2, '0');
+
+
+    const s =
+        String(
+            now.getSeconds()
+        ).padStart(2, '0');
+
+
+    hours.textContent = h;
+
+    minutes.textContent = m;
+
+    seconds.textContent = s;
+
+
+    if (SHOW_SECONDS) {
+
+        mainTime.classList.remove(
+            'seconds-off'
+        );
+
+        seconds.classList.remove(
+            'seconds-hidden'
+        );
+
+        mainColon.style.opacity =
+            '1';
+
+    }
+    else {
+
+        mainTime.classList.add(
+            'seconds-off'
+        );
+
+        seconds.classList.add(
+            'seconds-hidden'
+        );
+
+        mainColon.style.opacity =
+            now.getSeconds() % 2 === 0
+                ? '1'
+                : '0';
+
+    }
+
+
+    const day =
+        String(
+            now.getDate()
+        ).padStart(2, '0');
+
+
+    const month =
+        String(
+            now.getMonth() + 1
+        ).padStart(2, '0');
+
+
+    const year =
+        now.getFullYear();
+
+
+   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const weekday = weekdays[now.getDay()];
+
+dateText.textContent = `${weekday} ${day} ${month} ${year}`;
+
+}
+
+
+updateClock();
+
+setInterval(
+    updateClock,
+    1000
+);
+
+
+/* =========================================================
+   »Õ“≈–œŒÀﬂ÷»ﬂ ÷¬≈“¿
+   ========================================================= */
+
+function interpolateColor(
+    color1,
+    color2,
+    amount
+) {
+
+    const hexToRgb =
+        function(hex) {
+
+            hex =
+                hex.replace(
+                    '#',
+                    ''
+                );
+
+            return {
+
+                r: parseInt(
+                    hex.substring(0, 2),
+                    16
+                ),
+
+                g: parseInt(
+                    hex.substring(2, 4),
+                    16
+                ),
+
+                b: parseInt(
+                    hex.substring(4, 6),
+                    16
+                )
+
+            };
+
+        };
+
+
+    const rgbToHex =
+        function(r, g, b) {
+
+            return '#' +
+
+                [
+                    r,
+                    g,
+                    b
+                ]
+
+                .map(
+                    function(value) {
+
+                        return Math.round(
+                            value
+                        )
+                        .toString(16)
+                        .padStart(2, '0');
+
+                    }
+                )
+
+                .join('');
+
+        };
+
+
+    const c1 =
+        hexToRgb(color1);
+
+    const c2 =
+        hexToRgb(color2);
+
+
+    const r =
+        c1.r +
+        (c2.r - c1.r)
+        * amount;
+
+
+    const g =
+        c1.g +
+        (c2.g - c1.g)
+        * amount;
+
+
+    const b =
+        c1.b +
+        (c2.b - c1.b)
+        * amount;
+
+
+    return rgbToHex(
+        r,
+        g,
+        b
+    );
+
+}
+
+
+/* =========================================================
+   ÷¬≈“Œ¬Œ… —œ≈ “–
+   ========================================================= */
+
+const batteryColors = [
+
+    {
+        pos: 0,
+        color: '#ff0000'
+    },
+
+    {
+        pos: 14.2857,
+        color: '#ff8000'
+    },
+
+    {
+        pos: 28.5714,
+        color: '#ffff00'
+    },
+
+    {
+        pos: 42.8571,
+        color: '#00ff00'
+    },
+
+    {
+        pos: 57.1428,
+        color: '#00ffff'
+    },
+
+    {
+        pos: 71.4285,
+        color: '#0080ff'
+    },
+
+    {
+        pos: 85.7142,
+        color: '#8000ff'
+    },
+
+    {
+        pos: 100,
+        color: '#8000ff'
+    }
+
+];
+
+
+/* =========================================================
+   “≈ ”Ÿ»… ÷¬≈“
+   ========================================================= */
+
+function getBatteryCurrentColor(
+    level
+) {
+
+    level =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                level
+            )
+        );
+
+
+    if (level <= 0) {
+
+        return batteryColors[0].color;
+
+    }
+
+
+    for (
+        let i = 1;
+        i < batteryColors.length;
+        i++
+    ) {
+
+        if (
+            level <=
+            batteryColors[i].pos
+        ) {
+
+            const previous =
+                batteryColors[i - 1];
+
+            const current =
+                batteryColors[i];
+
+
+            const progress =
+                (
+                    level -
+                    previous.pos
+                )
+                /
+                (
+                    current.pos -
+                    previous.pos
+                );
+
+
+            return interpolateColor(
+                previous.color,
+                current.color,
+                progress
+            );
+
+        }
+
+    }
+
+
+    return batteryColors[
+        batteryColors.length - 1
+    ].color;
+
+}
+
+
+/* =========================================================
+   ¬≈–’Õ»… —œ≈ “–
+   ========================================================= */
+
+function getBatterySpectrumGradient(
+    level
+) {
+
+    if (level <= 0) {
+
+        return '#ff0000';
+
+    }
+
+
+    const stops = [];
+
+
+    for (
+        let i = 0;
+        i < batteryColors.length;
+        i++
+    ) {
+
+        const current =
+            batteryColors[i];
+
+
+        if (
+            current.pos < level
+        ) {
+
+            const position =
+                (
+                    current.pos /
+                    level
+                )
+                * 100;
+
+
+            stops.push(
+                `${current.color} ${position}%`
+            );
+
+            continue;
+
+        }
+
+
+        if (
+            current.pos === level
+        ) {
+
+            stops.push(
+                `${current.color} 100%`
+            );
+
+            break;
+
+        }
+
+
+        const previous =
+            batteryColors[i - 1];
+
+
+        const range =
+            current.pos -
+            previous.pos;
+
+
+        const progress =
+            (
+                level -
+                previous.pos
+            )
+            /
+            range;
+
+
+        const color =
+            interpolateColor(
+                previous.color,
+                current.color,
+                progress
+            );
+
+
+        stops.push(
+            `${color} 100%`
+        );
+
+        break;
+
+    }
+
+
+    return `
+        linear-gradient(
+            90deg,
+            ${stops.join(', ')}
+        )
+    `;
+
+}
+
+
+/* =========================================================
+   Õ»∆Õ»…  –”√
+   ========================================================= */
+
+function drawBatteryCircle(
+    level
+) {
+
+    const rect =
+        batteryCanvas
+        .getBoundingClientRect();
+
+
+    const width =
+        rect.width;
+
+
+    const height =
+        rect.height;
+
+
+    if (
+        width <= 0 ||
+        height <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+
+    batteryCanvas.width =
+        Math.round(
+            width * dpr
+        );
+
+
+    batteryCanvas.height =
+        Math.round(
+            height * dpr
+        );
+
+
+    batteryCtx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    batteryCtx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    const centerX =
+        width / 2;
+
+
+    const centerY =
+        height / 2;
+
+
+    const radius =
+        Math.min(
+            width,
+            height
+        ) / 2 - 5;
+
+
+    const color =
+        getBatteryCurrentColor(
+            level
+        );
+
+
+    const startAngle =
+        -Math.PI / 2;
+
+
+    const batteryAngle =
+        (
+            level / 100
+        )
+        * Math.PI
+        * 2;
+
+
+    if (level > 0) {
+
+        batteryCtx.beginPath();
+
+
+        batteryCtx.arc(
+            centerX,
+            centerY,
+            radius,
+            startAngle,
+            startAngle + batteryAngle,
+            false
+        );
+
+
+        batteryCtx.strokeStyle =
+            color;
+
+
+        batteryCtx.lineWidth =
+            9;
+
+
+        batteryCtx.lineCap =
+            'round';
+
+
+        batteryCtx.shadowColor =
+            color;
+
+
+        batteryCtx.shadowBlur =
+            7;
+
+
+        batteryCtx.stroke();
+
+
+        batteryCtx.shadowBlur =
+            0;
+
+
+        const endAngle =
+            startAngle +
+            batteryAngle;
+
+
+        const dotX =
+            centerX +
+            Math.cos(endAngle)
+            * radius;
+
+
+        const dotY =
+            centerY +
+            Math.sin(endAngle)
+            * radius;
+
+
+        batteryCtx.beginPath();
+
+
+        batteryCtx.arc(
+            dotX,
+            dotY,
+            4,
+            0,
+            Math.PI * 2
+        );
+
+
+        batteryCtx.fillStyle =
+            color;
+
+
+        batteryCtx.shadowColor =
+            color;
+
+
+        batteryCtx.shadowBlur =
+            8;
+
+
+        batteryCtx.fill();
+
+
+        batteryCtx.shadowBlur =
+            0;
+
+    }
+
+}
+
+
+/* =========================================================
+   Œ¡ÕŒ¬À≈Õ»≈ ¡¿“¿–≈»
+   ========================================================= */
+
+function updateBatteryIndicators(
+    level,
+    isCharging
+) {
+
+    level =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                Math.round(level)
+            )
+        );
+
+
+    lastBatteryLevel =
+        level;
+
+
+    lastBatteryCharging =
+        isCharging;
+
+
+    rainbowFill.style.width =
+        `${level}%`;
+
+
+    rainbowFill.style.background =
+        getBatterySpectrumGradient(
+            level
+        );
+
+
+    drawBatteryCircle(
+        level
+    );
+
+
+    batteryPercent.textContent =
+        `${level}%`;
+
+
+    batteryCircle.textContent =
+        `${level}%`;
+
+
+    screen.classList.toggle(
+        'battery-charging',
+        isCharging
+    );
+
+
+    screen.classList.toggle(
+        'battery-discharging',
+        !isCharging
+    );
+
+}
+
+
+/* =========================================================
+   BATTERY API
+   ========================================================= */
+
+let batteryObject = null;
+
+
+async function initBattery() {
+
+    if (
+        !(
+            'getBattery'
+            in navigator
+        )
+    ) {
+
+        batteryPercent.textContent =
+            '--%';
+
+
+        batteryCircle.textContent =
+            '--';
+
+
+        rainbowFill.style.width =
+            '0%';
+
+
+        rainbowFill.style.background =
+            '#ff0000';
+
+
+        screen.classList.remove(
+            'battery-charging',
+            'battery-discharging'
+        );
+
+
+        return;
+
+    }
+
+
+    try {
+
+        batteryObject =
+            await navigator.getBattery();
+
+
+        function updateBattery() {
+
+            const level =
+                Math.round(
+                    batteryObject.level * 100
+                );
+
+
+            updateBatteryIndicators(
+                level,
+                batteryObject.charging
+            );
+
+        }
+
+
+        updateBattery();
+
+
+        batteryObject.addEventListener(
+            'levelchange',
+            updateBattery
+        );
+
+
+        batteryObject.addEventListener(
+            'chargingchange',
+            updateBattery
+        );
+
+
+    }
+    catch (error) {
+
+        console.log(
+            'Battery API error:',
+            error
+        );
+
+    }
+
+}
+
+
+initBattery();
+
+
+/* =========================================================
+   ƒ¬Œ…ÕŒ… “¿œ ó —≈ ”Õƒ€
+   ========================================================= */
+
+let lastSecondsTap = 0;
+
+
+function handleSecondsTap(
+    event
+) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+
+    const now =
+        Date.now();
+
+
+    if (
+        now - lastSecondsTap < 400
+    ) {
+
+        SHOW_SECONDS =
+            !SHOW_SECONDS;
+
+
+        if (SHOW_SECONDS) {
+
+            showStatus(
+                'SECONDS ON',
+                1200
+            );
+
+        }
+        else {
+
+            showStatus(
+                'SECONDS OFF',
+                1200
+            );
+
+        }
+
+
+        updateClock();
+
+
+        lastSecondsTap =
+            0;
+
+
+        return;
+
+    }
+
+
+    lastSecondsTap =
+        now;
+
+}
+
+
+secondsToggleZone.addEventListener(
+    'pointerup',
+    handleSecondsTap
+);
+
+
+/* =========================================================
+   “–Œ…ÕŒ… “¿œ ó FULLSCREEN
+   ========================================================= */
+
+let tapCount = 0;
+
+let tapTimer = null;
+
+let suppressNextTap = false;
+
+
+function resetTripleTap() {
+
+    tapCount = 0;
+
+    clearTimeout(tapTimer);
+
+    tapTimer = null;
+
+}
+
+
+screen.addEventListener(
+    'pointerup',
+    function(event) {
+
+        if (
+            secondsZone.contains(
+                event.target
+            )
+            ||
+            secondsToggleZone.contains(
+                event.target
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            dateDisplay.contains(
+                event.target
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        if (suppressNextTap) {
+
+            suppressNextTap =
+                false;
+
+            return;
+
+        }
+
+
+        tapCount++;
+
+
+        if (tapCount === 3) {
+
+            resetTripleTap();
+
+            toggleFullscreen();
+
+            return;
+
+        }
+
+
+        clearTimeout(
+            tapTimer
+        );
+
+
+        tapTimer =
+            setTimeout(
+                function() {
+
+                    resetTripleTap();
+
+                },
+                500
+            );
+
+    }
+);
+
+
+/* =========================================================
+   FULLSCREEN
+   ========================================================= */
+
+async function toggleFullscreen() {
+
+    try {
+
+        if (
+            !document.fullscreenElement
+        ) {
+
+            if (
+                !document.documentElement
+                    .requestFullscreen
+            ) {
+
+                showStatus(
+                    'FULLSCREEN NOT SUPPORTED',
+                    1500
+                );
+
+                return;
+
+            }
+
+
+            await document
+                .documentElement
+                .requestFullscreen();
+
+
+            showStatus(
+                'FULLSCREEN ON',
+                1200
+            );
+
+        }
+        else {
+
+            await document.exitFullscreen();
+
+
+            showStatus(
+                'FULLSCREEN OFF',
+                1200
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.log(
+            'Fullscreen error:',
+            error
+        );
+
+
+        showStatus(
+            'FULLSCREEN ERROR',
+            1500
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   WAKE LOCK
+   ========================================================= */
+
+async function requestWakeLock() {
+
+    if (
+        !KEEP_SCREEN_ON
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !('wakeLock' in navigator)
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        wakeLock &&
+        !wakeLock.released
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        wakeLock =
+            await navigator
+                .wakeLock
+                .request('screen');
+
+
+        wakeLock.addEventListener(
+            'release',
+            function() {
+
+                wakeLock = null;
+
+            }
+        );
+
+
+    }
+    catch (error) {
+
+        console.log(
+            'Wake Lock error:',
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   Œ—¬Œ¡Œ∆ƒ≈Õ»≈ WAKE LOCK
+   ========================================================= */
+
+async function releaseWakeLock() {
+
+    if (!wakeLock) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await wakeLock.release();
+
+    }
+    catch (error) {
+
+        console.log(
+            'Wake Lock release error:',
+            error
+        );
+
+    }
+
+
+    wakeLock = null;
+
+}
+
+
+/* =========================================================
+   ¬Œ«¬–¿“ Õ¿ › –¿Õ
+   ========================================================= */
+
+document.addEventListener(
+    'visibilitychange',
+    function() {
+
+        if (
+            document.visibilityState ===
+            'visible'
+        ) {
+
+            if (
+                KEEP_SCREEN_ON
+            ) {
+
+                requestWakeLock();
+
+            }
+
+
+            drawBatteryCircle(
+                lastBatteryLevel
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ƒÀ»“≈À‹ÕŒ≈ Õ¿∆¿“»≈ Õ¿ ƒ¿“”
+   ========================================================= */
+
+let longPressTimer = null;
+
+let longPressTriggered = false;
+
+
+function startDateLongPress(
+    event
+) {
+
+    if (
+        event.button !== undefined &&
+        event.button !== 0
+    ) {
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+
+    clearTimeout(
+        longPressTimer
+    );
+
+
+    longPressTriggered =
+        false;
+
+
+    longPressTimer =
+        setTimeout(
+            async function() {
+
+                longPressTimer =
+                    null;
+
+
+                longPressTriggered =
+                    true;
+
+
+                suppressNextTap =
+                    true;
+
+
+                KEEP_SCREEN_ON =
+                    !KEEP_SCREEN_ON;
+
+
+                if (
+                    KEEP_SCREEN_ON
+                ) {
+
+                    await requestWakeLock();
+
+
+                    showStatus(
+                        'SCREEN LOCK ON',
+                        1500
+                    );
+
+                }
+                else {
+
+                    await releaseWakeLock();
+
+
+                    showStatus(
+                        'SCREEN LOCK OFF',
+                        1500
+                    );
+
+                }
+
+            },
+            2500
+        );
+
+}
+
+
+function cancelDateLongPress(
+    event
+) {
+
+    if (event) {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+    }
+
+
+    if (
+        longPressTimer !== null
+    ) {
+
+        clearTimeout(
+            longPressTimer
+        );
+
+
+        longPressTimer =
+            null;
+
+    }
+
+}
+
+
+/* =========================================================
+   POINTER EVENTS
+   ========================================================= */
+
+dateDisplay.addEventListener(
+    'pointerdown',
+    startDateLongPress
+);
+
+dateDisplay.addEventListener(
+    'pointerup',
+    cancelDateLongPress
+);
+
+dateDisplay.addEventListener(
+    'pointercancel',
+    cancelDateLongPress
+);
+
+dateDisplay.addEventListener(
+    'pointerleave',
+    cancelDateLongPress
+);
+
+
+/* =========================================================
+   «¿œ”—  WAKE LOCK
+   ========================================================= */
+
+requestWakeLock();
+
+
+/* =========================================================
+   œ≈–≈–»—Œ¬ ¿  –”√¿
+   ========================================================= */
+
+window.addEventListener(
+    'resize',
+    function() {
+
+        drawBatteryCircle(
+            lastBatteryLevel
+        );
+
+    }
+);
+
+
+/* =========================================================
+   »Õ»÷»¿À‹Õ¿ﬂ œ≈–≈–»—Œ¬ ¿
+   ========================================================= */
+
+requestAnimationFrame(
+    function() {
+
+        drawBatteryCircle(
+            lastBatteryLevel
+        );
+
+    }
+);
+
+
+</script>
+
+</body>
+
+</html>
