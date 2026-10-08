@@ -141,9 +141,9 @@ body {
 
 .time-part {
     display: inline-block;
-    font-family: sans-serif;
+    font-family: Courier New;
     font-weight: 800;
-    transform: scaleX(1.0);
+    transform: scaleX(1.2s);
 }
 
 
@@ -262,7 +262,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: clamp(65px, 12vw, 95px);
-    height: clamp(65px, 12vw, 95px);
+    height: clamp(45px, 12vw, 75px);
     pointer-events: none;
     z-index: 5;
 }
@@ -298,7 +298,7 @@ body {
 
 .battery-triangle {
     position: absolute;
-    bottom: 12.2vh;
+    bottom: 11.2vh;
     width: 0;
     height: 0;
     transition:
@@ -381,11 +381,11 @@ body {
     }
 
     .triangle-left {
-        right: calc(50% + 43px);
+        right: calc(50% + 45px);
     }
 
     .triangle-right {
-        left: calc(50% + 43px);
+        left: calc(50% + 45px);
     }
 
     .seconds-toggle-zone {
@@ -683,7 +683,7 @@ const screenMoveAmplitudeX = 44;
 
 const screenMoveAmplitudeY = 40;
 
-const screenMoveTime = 49500;
+const screenMoveTime = 60000;
 
 let screenMoveStart =
     performance.now();
@@ -853,7 +853,7 @@ function updateClock() {
         now.getFullYear();
 
 
-   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+   const weekdays = ['7-Sun', '1-Mon', '2-Tue', '3-Wed', '4-Thu', '5-Fri', '6-Sat'];
 const weekday = weekdays[now.getDay()];
 
 dateText.textContent = `${weekday} ${day} ${month} ${year}`;
@@ -1585,7 +1585,7 @@ function handleSecondsTap(
 
             showStatus(
                 'SECONDS ON',
-                1200
+                5000
             );
 
         }
@@ -1593,7 +1593,7 @@ function handleSecondsTap(
 
             showStatus(
                 'SECONDS OFF',
-                1200
+                5000
             );
 
         }
@@ -1752,7 +1752,7 @@ async function toggleFullscreen() {
 
             showStatus(
                 'FULLSCREEN ON',
-                1200
+                5000
             );
 
         }
@@ -1763,7 +1763,7 @@ async function toggleFullscreen() {
 
             showStatus(
                 'FULLSCREEN OFF',
-                1200
+                5000
             );
 
         }
